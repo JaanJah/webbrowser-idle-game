@@ -1,21 +1,16 @@
-var userStone = 0;
-var currentStone = 0;
-var stoneText = 'You have ' + currentStone.toString() + ' stone';
 var minerSent = false;
 
-document.getElementById('YourStone').innerHTML = stoneText;
 function MinerWork(){
     DisableSendMiner();
     document.getElementById("sendMinerBtn").textContent = "Miner is working...";
     console.log("Miner sent to work")
     setTimeout(function() {
-        userStone += 1;
-        currentStone = userStone;
-        stoneText = 'You have ' + currentStone.toString() + ' stone'
-        document.getElementById('YourStone').innerHTML = stoneText
+        currentStone += 1;
+        invStone = currentStone + ' Stone';
+        document.getElementById('userStone').innerHTML = invStone;
         console.log("Miner done working");
-        document.getElementById("sendMinerBtn").textContent = "Send miner to work";
         EnableSendMiner();
+        document.getElementById("sendMinerBtn").textContent = "Send miner to work";
     }, 5000, console.log("Miner is working..."));
 }
 

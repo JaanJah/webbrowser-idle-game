@@ -8,13 +8,21 @@
         <div id="header">
             <h1>Idle Game</h1>
         </div>
-        <div id="stone">
-            <p id="YourStone"></p>
-        </div>
         <div id="sendMiner">
             <button id="sendMinerBtn" onclick="MinerWork()">Send miner to work</button>
         </div>
+        <div>
+            <h2>Inventory:</h2>
+            <div>
+                <ul style="list-style-type:disc">
+                    <li id="userStone"></li>
+                    <li id="userCopper"></li> <!---To be added--->
+                    <li id="userTin"></li> <!---To be added--->
+                </ul>  
+            </div>
+        </div>
         <!---Scripts--->
-        <script src="addvalue.js"></script>
+        <script src="miner.js"></script>
+        <script src="inventory.js"></script>
     </body>
 </html>
