@@ -6,6 +6,7 @@ var minerSent = false;
 document.getElementById('YourStone').innerHTML = stoneText;
 function MinerWork(){
     DisableSendMiner();
+    document.getElementById("sendMinerBtn").textContent = "Miner is working...";
     console.log("Miner sent to work")
     setTimeout(function() {
         userStone += 1;
@@ -13,6 +14,7 @@ function MinerWork(){
         stoneText = 'You have ' + currentStone.toString() + ' stone'
         document.getElementById('YourStone').innerHTML = stoneText
         console.log("Miner done working");
+        document.getElementById("sendMinerBtn").textContent = "Send miner to work";
         EnableSendMiner();
     }, 5000, console.log("Miner is working..."));
 }
