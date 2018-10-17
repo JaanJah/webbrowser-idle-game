@@ -27,3 +27,9 @@ function EnableSendMiner(){
         document.getElementById("sendMinerBtn").disabled = false;
     }
 }
+
+function SellOres(){
+    userMoney += currentStone * stonePrice;
+    currentStone = 0;
+    invStone = 0;
+}
