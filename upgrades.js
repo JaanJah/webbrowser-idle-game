@@ -2,13 +2,13 @@ var boughtUpgrades = [];
 var availableUpgrades = [];
 
 class Upgrade {
-    constructor(neededUpgrades, name, action) {
+    constructor(neededUpgrades, name, cost, action) {
         // Upgrades needed to be displayed
         this.neededUpgrades = neededUpgrades;
         this.name = name;
+        this.cost = cost;
         this.id = "upgrades-" + name;
         this.action = action;
-
 
         this.addToAvailableUpgrades();
         this.isUpgradable();
@@ -72,18 +72,29 @@ class Upgrade {
 
     // Upgrades this upgrade
     upgrade() {
+        if (userMoney < this.cost) {
+            return false;
+        }
+
+        userMoney -= this.cost;
+
         this.removeFromAvailableUpgrades();
+        this.action();
     }
 }
 
 // Loads all upgrades
 // https://api.jquery.com/jquery.getjson/
 function loadUpgrades() {
-    $.get("upgrades.json", function(data) {
-        var items = [];
-        $.each(data, function(key, val)) {
-            
-        }
+    $.getJSON("https://cdn.glitch.com/d9abad30-d89e-4a5f-9be1-2c9dbc8b45f1%2Fupgrades.json?1539860103225", function(data) {
+        $.each(data["upgrades"], function(key, value) {
+            console.log(value[0]);
+            var upgrade = new Upgrade(value[0]["requiredUpgrades"],
+                                      value[0]["name"],
+                                      value[0]["cost"],
+                                      new Function(value[0]["function"]));
+        });
+        
     });
 }
 

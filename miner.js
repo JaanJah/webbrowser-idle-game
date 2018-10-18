@@ -1,5 +1,6 @@
 var minerSent = false;
 var minerTime = 5000;
+var curMinerTime = minerTime;
 
 function MinerWork(){
     DisableSendMiner();
@@ -12,7 +13,7 @@ function MinerWork(){
         console.log("Miner done working");
         EnableSendMiner();
         document.getElementById("sendMinerBtn").textContent = "Send miner to work";
-    }, minerTime, console.log("Miner is working..."));
+    }, curMinerTime, console.log("Miner is working..."));
 }
 
 function DisableSendMiner(){
