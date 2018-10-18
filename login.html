@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <div>
+            <h2>Login Here</h1>
+        </div>
+        <div id="login">
+            Username: <input type="text" id="username"><br>
+            Password: <input type="text" id="password"><br>
+        </div>
+        <div id="loginBtn">
+            <button id="loginSubmitBtn" >Log in</button>
+        </div>
+        <div>
+            <h2>Register</h1>
+        </div>
+            <div>
+                <p id="errorMessage"></p>
+            </div>
+            <div id="register">
+                Username: <input type="text" id="username"><br>
+                Password: <input type="text" id="registerPassword"><br>
+                Repeat Password: <input type="text" id="registerCheckPassword"><br>
+            </div>
+            <div id="registerBtn">
+                <button id="registerSubmitBtn" onclick="checkSame()">Create account</button>
+            </div>
+
+            <!---Scripts--->
+            <script src="register.js"></script>
+    </body>
+</html>
