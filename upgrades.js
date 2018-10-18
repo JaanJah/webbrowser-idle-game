@@ -77,8 +77,14 @@ class Upgrade {
 }
 
 // Loads all upgrades
+// https://api.jquery.com/jquery.getjson/
 function loadUpgrades() {
-    const betterDrill = new Upgrade([], "betterDrill");
+    $.get("upgrades.json", function(data) {
+        var items = [];
+        $.each(data, function(key, val)) {
+            
+        }
+    });
 }
 
 loadUpgrades();
