@@ -1,4 +1,4 @@
-.upgrades {
+.upgrades-wrapper {
 	display: flex;
 }
 
@@ -8,4 +8,9 @@
 
 .right {
 	flex: 1;
+}
+
+#upgrade-available {
+	cursor: pointer;
+	font-size: 60px;
 }
