@@ -1,0 +1,14 @@
+{
+  "upgrades": [
+    [
+      {
+        "requiredUpgrades": [],
+        "name": "Better Drill",
+        "cost": 20,
+        "arguments": "",
+        "function": "curMinerTime -= 2000;"
+      }
+      
+    ]
+  ]
+}

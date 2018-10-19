@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Idle Game</title>
+        <link rel="stylesheet" href="css/game.css">
     </head>
     <body>
         <div id="header">
@@ -27,8 +28,26 @@
                 <button onclick="SellOres()">Sell all your ores</button>
             </div>
         </div>
+        <!-- UPGRADES -->
+        <div class="upgrades">
+			<div class="upgrades-available">
+				<h2>Available Upgrades</h2>
+				<ul id="upgrades-available-list" style="list-style-type:disc">
+				</ul>
+			</div>
+			<div class="upgrades-available">
+				<h2>Bought Upgrades</h2>
+				<ul id="upgrades-bought-list" style="list-style-type:disc">
+				</ul>
+			</div>
+        </div>
+        <!-- END UPGRADES -->
+
         <!---Scripts--->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="miner.js"></script>
         <script src="inventory.js"></script>
+        <script src="upgrades.js"></script>
+
     </body>
 </html>

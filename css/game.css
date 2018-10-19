@@ -1,0 +1,11 @@
+.upgrades {
+	display: flex;
+}
+
+.upgrades-available {
+	flex: 0 0 40%;
+}
+
+.right {
+	flex: 1;
+}
