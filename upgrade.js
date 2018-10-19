@@ -39,40 +39,51 @@ class Upgrade {
             console.log('Error: Failed to find index of', this);
         }
         else {
-			upgradeManager.upgrades.splice(index, 1);
-            upgradeManager.upgrades.push(this);
             document.getElementById(this.id).remove();
-
-            var ul = document.getElementById("upgrades-bought-list");
-            var li = document.createElement("li");
-
-            li.setAttribute("id", this.id);
-
-            li.appendChild(document.createTextNode(this.name));
-            ul.appendChild(li);
+            this.createElement(true);
         }
     }
+    
+    createElement(bought) {
+		var ul;
+        var li = document.createElement("li");
+        var name = this.name;
+        
+        if (bought) {
+			li.setAttribute("class", "upgrade-bought");
+			ul = document.getElementById("upgrades-bought-list");
+			
+		}
+		else {
+			ul = document.getElementById("upgrades-available-list");
+			li.setAttribute("class", "upgrade-available");
+			li.style.cursor = "pointer"; //TODO: load from css
+			
+			li.onclick = function() {
+				var upgrade = upgradeManager.getUpgrade(this.id);
+				if (upgrade == null) {
+					console.log("Error: Failed to get upgrade: '" + this.id + "'");
+					return;
+				}
+			
+				upgrade.buyUpgrade();
+			}
+			
+			name += " - " + this.cost + "€";
+		}
+		
+		li.setAttribute("id", this.id);
+		
+		li.appendChild(document.createTextNode(name));
+        ul.appendChild(li);
+        
+        return li;
+	}
 
     // Displays this upgrade on page
     // https://stackoverflow.com/questions/20673959/how-to-add-new-li-to-ul-onclick-with-javascript
     displayUpgrade() {
-        var ul = document.getElementById("upgrades-available-list");
-        var li = document.createElement("li");
-
-        li.setAttribute("id", this.id);
-        li.onclick = function() {
-			var upgrade = upgradeManager.getUpgrade(this.id);
-			if (upgrade == null) {
-				console.log("Error: Failed to get upgrade: '" + this.id + "'");
-				return;
-			}
-			
-			upgrade.buyUpgrade();
-		}
-
-		name = this.name + " - " + this.cost + "€";
-        li.appendChild(document.createTextNode(name));
-        ul.appendChild(li);
+        this.createElement(false);
     }
 
     // buy this upgrade
