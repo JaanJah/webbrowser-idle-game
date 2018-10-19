@@ -8,6 +8,7 @@ class Upgrade {
         // Function executed when bought
         this.action = action;
         this.bought = false;
+        this.displayed = false;
 
         upgradeManager.upgrades.push(this);
         this.isUpgradable();
@@ -16,12 +17,17 @@ class Upgrade {
     // Checks if all needed upgrades are bought
     // if true, then displays this upgrade
     isUpgradable() {
+		if (this.bought ||
+			this.displayed) {
+			return false;
+		}
+		
         for (var i = 0; i < this.neededUpgrades.length; i++) {
-			var upgrade = this.neededUpgrades.at(i);
-            if (upgrade in upgradeManager.upgrades ||
-				!upgrade.bought) {
+			var upgrade = upgradeManager.getUpgrade(this.neededUpgrades[i]);
+			
+			if (!upgrade.bought) {
 				return false;
-            }
+			}
         }
 
         this.displayUpgrade();
@@ -84,6 +90,8 @@ class Upgrade {
     // https://stackoverflow.com/questions/20673959/how-to-add-new-li-to-ul-onclick-with-javascript
     displayUpgrade() {
         this.createElement(false);
+        this.displayed = true;
+        upgradeManager.updateText();
     }
 
     // buy this upgrade
@@ -97,5 +105,7 @@ class Upgrade {
 
         this.removeFromAvailableUpgrades();
         this.action();
+        
+        upgradeManager.updateAvailable();
     }
 }

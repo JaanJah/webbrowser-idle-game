@@ -1,14 +1,19 @@
 {
   "upgrades": [
-    [
       {
         "requiredUpgrades": [],
         "name": "Better Drill",
         "cost": 20,
         "arguments": "",
         "function": "curMinerTime -= 2000;"
-      }
+      },
       
-    ]
+      {
+		  "requiredUpgrades": ["Better Drill"],
+		  "name": "Titanium tip",
+		  "cost": 20,
+		  "function": "curMinerTime -= 1000;"
+	  }
+      
   ]
 }

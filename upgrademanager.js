@@ -8,12 +8,12 @@ class UpgradeManager {
 	// Loads all upgrades
 	// https://api.jquery.com/jquery.getjson/
 	loadUpgrades() {
-		$.getJSON("https://cdn.glitch.com/d9abad30-d89e-4a5f-9be1-2c9dbc8b45f1%2Fupgrades.json?1539860103225", function(data) {
+		$.getJSON("https://cdn.glitch.com/d9abad30-d89e-4a5f-9be1-2c9dbc8b45f1%2Fupgrades.json?1539980974468", function(data) {
 			$.each(data["upgrades"], function(key, value) {
-				var upgrade = new Upgrade(value[0]["requiredUpgrades"],
-										  value[0]["name"],
-										  value[0]["cost"],
-										  new Function(value[0]["function"]));
+				var upgrade = new Upgrade(value["requiredUpgrades"],
+										  value["name"],
+										  value["cost"],
+										  new Function(value["function"]));
 			});
 			
 			upgradeManager.updateText();
@@ -24,7 +24,8 @@ class UpgradeManager {
 		for (var i in this.upgrades) {
 			var upgrade = this.upgrades[i];
 			
-			if (upgrade.id == id) {
+			if (upgrade.id == id ||
+				upgrade.name == id) {
 				return upgrade;
 			}
 		}
@@ -32,14 +33,26 @@ class UpgradeManager {
 		return null;
 	}
 	
+	// Checks if any upgrades have been bought
+	// and displays this upgrade
+	updateAvailable() {
+		for (var i = 0; i < this.upgrades.length; i++) {
+			var upgrade = this.upgrades[i];
+			upgrade.isUpgradable();
+		}
+	}
+	
 	// Changes available upgrade text colors
 	// based on userMoney
 	updateText() {
-		
 		for (var i in this.upgrades) {
 			var upgrade = this.upgrades[i];
 			var element = document.getElementById(upgrade.id);
-			
+
+			if (element == null) {
+				continue;
+			}
+
 			if (upgrade.bought) {
 				continue;
 			}
@@ -52,7 +65,6 @@ class UpgradeManager {
 			}
 		}
 	}
-	
 }
 
 var upgradeManager;
