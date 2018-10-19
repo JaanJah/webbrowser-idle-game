@@ -30,6 +30,7 @@ function SellOres(){
 function setMoney(money) {
 	userMoney = money;
 	document.getElementById('userMoneyText').innerHTML = 'You have ' + userMoney + '€';
+	upgradeManager.updateText();
 }
 
 function SoldOres(){

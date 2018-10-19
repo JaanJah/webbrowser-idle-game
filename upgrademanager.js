@@ -1,5 +1,3 @@
-
-
 class UpgradeManager {
 	constructor() {
 		this.upgrades = [];
@@ -17,6 +15,8 @@ class UpgradeManager {
 										  value[0]["cost"],
 										  new Function(value[0]["function"]));
 			});
+			
+			upgradeManager.updateText();
 		});
 	}
 	
@@ -32,6 +32,31 @@ class UpgradeManager {
 		return null;
 	}
 	
+	// Changes available upgrade text colors
+	// based on userMoney
+	updateText() {
+		
+		for (var i in this.upgrades) {
+			var upgrade = this.upgrades[i];
+			var element = document.getElementById(upgrade.id);
+			
+			if (upgrade.bought) {
+				continue;
+			}
+
+			if (userMoney < upgrade.cost) {
+				element.style.color = "red";
+			}
+			else {
+				element.style.color = "green";
+			}
+		}
+	}
+	
 }
 
-var upgradeManager = new UpgradeManager();
+var upgradeManager;
+
+window.onload = function() {
+	upgradeManager = new UpgradeManager();
+}
