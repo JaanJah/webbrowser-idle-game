@@ -47,7 +47,7 @@ class Upgrade {
             boughtUpgrades.push(this);
             document.getElementById(this.id).remove();
 
-            var ul = document.getElementById("bought-upgrades");
+            var ul = document.getElementById("upgrades-bought-list");
             var li = document.createElement("li");
 
             li.setAttribute("id", this.id);
@@ -60,13 +60,14 @@ class Upgrade {
     // Displays this upgrade on page
     // https://stackoverflow.com/questions/20673959/how-to-add-new-li-to-ul-onclick-with-javascript
     displayUpgrade() {
-        var ul = document.getElementById("available-upgrades");
+        var ul = document.getElementById("upgrades-available-list");
         var li = document.createElement("li");
 
         li.setAttribute("id", this.id);
         li.setAttribute("onclick", "availableUpgrades[0].upgrade()");
 
-        li.appendChild(document.createTextNode(this.name));
+		name = this.name + " - " + this.cost + "€";
+        li.appendChild(document.createTextNode(name));
         ul.appendChild(li);
     }
 
@@ -76,7 +77,7 @@ class Upgrade {
             return false;
         }
 
-        userMoney -= this.cost;
+        setMoney(userMoney - this.cost);
 
         this.removeFromAvailableUpgrades();
         this.action();
@@ -88,13 +89,11 @@ class Upgrade {
 function loadUpgrades() {
     $.getJSON("https://cdn.glitch.com/d9abad30-d89e-4a5f-9be1-2c9dbc8b45f1%2Fupgrades.json?1539860103225", function(data) {
         $.each(data["upgrades"], function(key, value) {
-            console.log(value[0]);
             var upgrade = new Upgrade(value[0]["requiredUpgrades"],
                                       value[0]["name"],
                                       value[0]["cost"],
                                       new Function(value[0]["function"]));
         });
-        
     });
 }
 

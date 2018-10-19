@@ -18,12 +18,18 @@ document.getElementById('userTin').innerHTML = invTin;
 document.getElementById('userMoneyText').innerHTML = 'You have ' + userMoney + '€';
 
 function SellOres(){
-    userMoney += (currentStone * stonePrice)
+	var money = userMoney;
+    money += (currentStone * stonePrice)
         + (currentCopper * copperPrice)
         + (currentTin * tinPrice);
     SoldOres();
-    document.getElementById('userMoneyText').innerHTML = 'You have ' + userMoney + '€';
+    setMoney(money);
     document.getElementById('userStone').innerHTML = invStone;
+}
+
+function setMoney(money) {
+	userMoney = money;
+	document.getElementById('userMoneyText').innerHTML = 'You have ' + userMoney + '€';
 }
 
 function SoldOres(){
