@@ -1,16 +1,22 @@
-.upgrades-wrapper {
+#upgrades-wrapper {
 	display: flex;
 }
 
-.upgrades-available {
+#upgrades-available {
 	flex: 0 0 40%;
 }
 
-.right {
+#upgrades-bought {
 	flex: 1;
 }
 
-#upgrade-available {
-	cursor: pointer;
-	font-size: 60px;
+#progressbar {
+	width: 150px;
+	background-color: grey;
+	display: none;
+}
+#progressbar-bar {
+	width: 0%;
+	height: 28px;
+	background-color: green;
 }
