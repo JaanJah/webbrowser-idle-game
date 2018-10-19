@@ -1,6 +1,3 @@
-var boughtUpgrades = [];
-var availableUpgrades = [];
-
 class Upgrade {
     constructor(neededUpgrades, name, cost, action) {
         // Upgrades needed to be displayed
@@ -8,9 +5,11 @@ class Upgrade {
         this.name = name;
         this.cost = cost;
         this.id = "upgrades-" + name;
+        // Function executed when bought
         this.action = action;
+        this.bought = false;
 
-        this.addToAvailableUpgrades();
+        upgradeManager.upgrades.push(this);
         this.isUpgradable();
     }
 
@@ -18,8 +17,10 @@ class Upgrade {
     // if true, then displays this upgrade
     isUpgradable() {
         for (var i = 0; i < this.neededUpgrades.length; i++) {
-            if (this.neededUpgrades.at(i) in availableUpgrades) {
-                return false;
+			var upgrade = this.neededUpgrades.at(i);
+            if (upgrade in upgradeManager.upgrades ||
+				!upgrade.bought) {
+				return false;
             }
         }
 
@@ -28,23 +29,18 @@ class Upgrade {
         return true;
     }
 
-    // Adds this class to available upgrades
-    addToAvailableUpgrades() {
-        availableUpgrades.push(this);
-    }
-
     // Adds this class from available upgrades
     // and adds it to boughtUpgrades
     // https://stackoverflow.com/questions/5767325/how-do-i-remove-a-particular-element-from-an-array-in-javascript
     removeFromAvailableUpgrades() {
-        var index = availableUpgrades.indexOf(this);
+        var index = upgradeManager.upgrades.indexOf(this);
         
         if (index == -1) {
             console.log('Error: Failed to find index of', this);
         }
         else {
-            availableUpgrades.splice(index, 1);
-            boughtUpgrades.push(this);
+			upgradeManager.upgrades.splice(index, 1);
+            upgradeManager.upgrades.push(this);
             document.getElementById(this.id).remove();
 
             var ul = document.getElementById("upgrades-bought-list");
@@ -64,37 +60,31 @@ class Upgrade {
         var li = document.createElement("li");
 
         li.setAttribute("id", this.id);
-        li.setAttribute("onclick", "availableUpgrades[0].upgrade()");
+        li.onclick = function() {
+			var upgrade = upgradeManager.getUpgrade(this.id);
+			if (upgrade == null) {
+				console.log("Error: Failed to get upgrade: '" + this.id + "'");
+				return;
+			}
+			
+			upgrade.buyUpgrade();
+		}
 
 		name = this.name + " - " + this.cost + "€";
         li.appendChild(document.createTextNode(name));
         ul.appendChild(li);
     }
 
-    // Upgrades this upgrade
-    upgrade() {
+    // buy this upgrade
+    buyUpgrade() {
         if (userMoney < this.cost) {
             return false;
         }
 
         setMoney(userMoney - this.cost);
+        this.bought = true;
 
         this.removeFromAvailableUpgrades();
         this.action();
     }
 }
-
-// Loads all upgrades
-// https://api.jquery.com/jquery.getjson/
-function loadUpgrades() {
-    $.getJSON("https://cdn.glitch.com/d9abad30-d89e-4a5f-9be1-2c9dbc8b45f1%2Fupgrades.json?1539860103225", function(data) {
-        $.each(data["upgrades"], function(key, value) {
-            var upgrade = new Upgrade(value[0]["requiredUpgrades"],
-                                      value[0]["name"],
-                                      value[0]["cost"],
-                                      new Function(value[0]["function"]));
-        });
-    });
-}
-
-loadUpgrades();
