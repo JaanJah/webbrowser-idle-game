@@ -36,12 +36,18 @@
 			<div id="upgrades-available">
 				<h2>Available Upgrades</h2>
 				<ul id="upgrades-available-list" style="list-style-type:disc">
-				</ul>
+                    <li v-for="upgrade in upgrades" v-bind:class="classObject">
+                        {{ upgrade.name }}
+                    </li>
+                </ul>
 			</div>
-			<div id="upgrades-available">
+			<div id="upgrades-bought">
 				<h2>Bought Upgrades</h2>
 				<ul id="upgrades-bought-list" style="list-style-type:disc">
-				</ul>
+                    <li v-for="upgrade in upgrades">
+                        {{ upgrade.name }}
+                    </li>
+                </ul>
 			</div>
         </div>
         <!-- END UPGRADES -->

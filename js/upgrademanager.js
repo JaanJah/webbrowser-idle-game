@@ -16,6 +16,7 @@ class UpgradeManager {
 										  new Function(value["function"]));
 			});
 			
+			upgradeManager.updateAvailable();
 			upgradeManager.updateText();
 		});
 	}
@@ -36,10 +37,32 @@ class UpgradeManager {
 	// Checks if any upgrades have been bought
 	// and displays this upgrade
 	updateAvailable() {
+		var availableUpgrades = [];
+		var boughtUpgrades = [];
+
 		for (var i = 0; i < this.upgrades.length; i++) {
 			var upgrade = this.upgrades[i];
-			upgrade.isUpgradable();
+
+			if(upgrade.isUpgradable()) {
+				if (upgrade.bought) {
+					boughtUpgrades.push({name: upgrade.name});
+				}
+				else {
+					availableUpgrades.push({name: upgrade.name});
+				}
+			}
 		}
+
+
+
+		Vue.component('upgrade', {
+			data: function() {
+				return {
+					count: 0
+				}
+			}
+
+		})
 	}
 	
 	// Changes available upgrade text colors
@@ -49,11 +72,7 @@ class UpgradeManager {
 			var upgrade = this.upgrades[i];
 			var element = document.getElementById(upgrade.id);
 
-			if (element == null) {
-				continue;
-			}
-
-			if (upgrade.bought) {
+			if (element == null || element.bought) {
 				continue;
 			}
 
