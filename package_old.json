@@ -1,0 +1,22 @@
+{
+  "name": "webgame",
+  "version": "1.0.0",
+  "description": "This is a web browser idle game I am making.\r Mainly to learn javascript and html, but also because I want to create such game.",
+  "main": "miner.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaanJah/webbrowser-idle-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaanJah/webbrowser-idle-game/issues"
+  },
+  "homepage": "https://github.com/JaanJah/webbrowser-idle-game#readme",
+  "dependencies": {
+    "vue": "^2.5.17"
+  }
+}
